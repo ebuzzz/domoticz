@@ -6736,7 +6736,7 @@ namespace http {
                 char szTmp[1024];
                 
                 sprintf(szTmp,
-                    "INSERT INTO GCMDevices (RegistrationID, LastSeen) VALUES ('%s', NOW())",
+                    "INSERT INTO GCMDevices (RegistrationID, LastUpdate) VALUES ('%s', datetime('now', 'localtime'))",
                     registration_id.c_str());
                 result = m_sql.query(szTmp);
 			}     

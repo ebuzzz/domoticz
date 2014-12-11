@@ -494,6 +494,11 @@ const char *sqlCreateFloorplanOrderTrigger =
 	"	UPDATE Floorplans SET [Order] = (SELECT MAX([Order]) FROM Floorplans)+1 WHERE Floorplans.ID = NEW.ID;\n"
 	"END;\n";
 
+const char *sqlCreateGCMDevices =
+    "CREATE TABLE IF NOT EXISTS [GCMDevices] ("
+    "[RegistrationID] TEXT NOT NULL, "
+    "[LastUpdate] DATETIME DEFAULT(datetime('now', 'localtime')));";
+    
 extern std::string szStartupFolder;
 
 CSQLHelper::CSQLHelper(void)
@@ -609,6 +614,7 @@ bool CSQLHelper::OpenDatabase()
 	query(sqlCreateUserVariables);
 	query(sqlCreateFloorplans);
 	query(sqlCreateFloorplanOrderTrigger);
+    query(sqlCreateGCMDevices);
 
 	if ((!bNewInstall) && (dbversion < DB_VERSION))
 	{
