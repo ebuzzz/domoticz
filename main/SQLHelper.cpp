@@ -2311,8 +2311,8 @@ bool CSQLHelper::SendNotification(const std::string &EventID, const std::string 
             Json::Value postBody;
             Json::Value registrationIds;
             Json::Value data;
-            postBody['registration_ids'] = registrationIds;
-            postBody['data'] = data;
+            postBody["registration_ids"] = registrationIds;
+            postBody["data"] = data;
             
 			std::stringstream sAuthorizationHeader;
 			sAuthorizationHeader << "Authorization: key=" << sValue;

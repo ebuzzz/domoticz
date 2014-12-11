@@ -6713,6 +6713,46 @@ namespace http {
 				result = m_sql.query(szTmp);
 				_log.Log(LOG_STATUS, "(Floorplan) Plan '%s' floorplan data reset.", idx.c_str());
 			}
+			else if (cparam == "getgcmsettings")
+            {
+                root["status"] = "OK";
+                root["title"] = "GetGCMSettings";
+                
+				std::string GCMProject;
+				int nValue;
+				if (m_sql.GetPreferencesVar("GCMProject", nValue, GCMProject))
+                {
+                    root["Project"] = GCMProject;
+                }
+			}
+			else if (cparam == "gcmregister")
+            {
+                root["status"] = "OK";
+                root["title"] = "GCMRegister";
+                
+                std::string registration_id = m_pWebEm->FindValue("registration_id");
+                
+                std::vector<std::vector<std::string> > result;
+                char szTmp[1024];
+                
+                sprintf(szTmp,
+                    "INSERT INTO GCMDevices (RegistrationID, LastSeen) VALUES ('%s', NOW())",
+                    registration_id.c_str());
+                result = m_sql.query(szTmp);
+			}     
+            else if (cparam == "gcmunregister")
+            {
+                root["status"] = "OK";
+                root["title"] = "GCMUnregister";
+                
+                std::string registration_id = m_pWebEm->FindValue("registration_id");
+                
+                char szTmp[1024];
+                sprintf(szTmp,
+                    "DELETE FROM GCMDevices WHERE RegistrationID = '%s'",
+                    registration_id.c_str());
+                m_sql.query(szTmp);
+			}    
 		}
 
 		char * CWebServer::DisplaySwitchTypesCombo()
