@@ -2301,6 +2301,33 @@ bool CSQLHelper::SendNotification(const std::string &EventID, const std::string 
 		}
 	}
 
+	//check if Google Cloud Messaging (GCM) enabled
+	if (GetPreferencesVar("GCMAPI",nValue,sValue))
+	{
+		sValue=stdstring_trim(sValue);
+		if (sValue!="")
+		{
+			//send message via GCM to connected devices
+            Json::Value postBody;
+            Json::Value registrationIds;
+            Json::Value data;
+            postBody['registration_ids'] = registrationIds;
+            postBody['data'] = data;
+            
+			std::stringstream sAuthorizationHeader;
+			sAuthorizationHeader << "Authorization: key=" << sValue;
+			std::vector<std::string> extraHeaders = { sAuthorizationHeader, "Content-Type:application/json" };
+			if (!HTTPClient::POST("https://android.googleapis.com/gcm/send",postBody.toStyledString(),extraHeaders,sResult))
+			{
+				_log.Log(LOG_ERROR,"Error sending GCM Notification!");
+			}
+			else
+			{
+				_log.Log(LOG_STATUS,"Notification sent (GCM)");
+			}
+		}
+	}
+    
 	//check if Email enabled
 	if (GetPreferencesVar("UseEmailInNotifications", nValue))
 	{

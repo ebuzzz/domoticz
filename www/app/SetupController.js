@@ -179,6 +179,12 @@ define(['app'], function (app) {
 			  if (typeof data.NMAAPI != 'undefined') {
 				$("#nmatable #apikey").val(data.NMAAPI);
 			  }
+			  if (typeof data.GCMProject != 'undefined') {
+				$("#gcmtable #gcmproject").val(data.GCMProject);
+			  }
+			  if (typeof data.GCMAPI != 'undefined') {
+				$("#gcmtable #gcmapikey").val(data.GCMAPI);
+			  }
 			  if (typeof data.PushoverAPI != 'undefined') {
 				$("#pushovertable #apikey").val(data.PushoverAPI);
 			  }
