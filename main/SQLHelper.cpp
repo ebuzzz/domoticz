@@ -6,6 +6,8 @@
 #include "RFXNames.h"
 #include "../msbuild/WindowsHelper.h"
 #include "localtime_r.h"
+#include "../json/config.h"
+#include "../json/json.h"
 #include "Logger.h"
 #include "mainworker.h"
 #include "../sqlite/sqlite3.h"
@@ -2320,9 +2322,9 @@ bool CSQLHelper::SendNotification(const std::string &EventID, const std::string 
             postBody["registration_ids"] = registrationIds;
             postBody["data"] = data;
             
-			std::stringstream sAuthorizationHeader;
-			sAuthorizationHeader << "Authorization: key=" << sValue;
-			std::vector<std::string> extraHeaders = { sAuthorizationHeader, "Content-Type:application/json" };
+			std::vector<std::string> extraHeaders;
+			extraHeaders.push_back("Authorization: key="+sValue);
+			extraHeaders.push_back("Content-Type:application/json");
 			if (!HTTPClient::POST("https://android.googleapis.com/gcm/send",postBody.toStyledString(),extraHeaders,sResult))
 			{
 				_log.Log(LOG_ERROR,"Error sending GCM Notification!");
