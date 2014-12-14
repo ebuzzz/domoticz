@@ -6715,15 +6715,19 @@ namespace http {
 			}
 			else if (cparam == "getgcmsettings")
             {
-                root["status"] = "OK";
-                root["title"] = "GetGCMSettings";
-                
+				root["status"] = "OK";
+				root["title"] = "GetGCMSettings";
+
 				std::string GCMProject;
 				int nValue;
 				if (m_sql.GetPreferencesVar("GCMProject", nValue, GCMProject))
-                {
-                    root["Project"] = GCMProject;
-                }
+				{
+					root["Project"] = GCMProject;
+				}
+				else
+				{
+					root['Error'] = "Not configured";
+				}
 			}
 			else if (cparam == "gcmregister")
             {
@@ -6735,10 +6739,16 @@ namespace http {
 				std::vector<std::vector<std::string> > result;
 				char szTmp[1024];
 
-				sprintf(szTmp,
-					"INSERT INTO GCMDevices (RegistrationID, LastUpdate) VALUES ('%s', datetime('now', 'localtime'))",
-					registration_id.c_str());
-				result = m_sql.query(szTmp);
+				// Check if the registration ID does not already exist
+				sprintf(szTmp,"SELECT ROWID FROM GCMDevices WHERE (RegistrationID='%s')",registration_id.c_str());
+				result=query(szTmp);
+				if (result.size()==0)
+				{
+					sprintf(szTmp,
+						"INSERT INTO GCMDevices (RegistrationID, LastUpdate) VALUES ('%s', datetime('now', 'localtime'))",
+						registration_id.c_str());
+					m_sql.query(szTmp);
+				}
 			}     
 			else if (cparam == "gcmunregister")
 			{
