@@ -2318,20 +2318,36 @@ bool CSQLHelper::SendNotification(const std::string &EventID, const std::string 
 			//send message via GCM to connected devices
 			Json::Value postBody;
 			Json::Value registrationIds;
-			Json::Value data;
-			postBody["registration_ids"] = registrationIds;
-			postBody["data"] = data;
 
-			std::vector<std::string> extraHeaders;
-			extraHeaders.push_back("Authorization: key="+sValue);
-			extraHeaders.push_back("Content-Type:application/json");
-			if (!HTTPClient::POST("https://android.googleapis.com/gcm/send",postBody.toStyledString(),extraHeaders,sResult))
+			char szTmp[600];
+			std::vector<std::vector<std::string> > result;
+			sprintf(szTmp,"SELECT RegistrationID FROM GCMDevices");
+			result=m_sql.query(szTmp);
+			if (result.size() > 0)
 			{
-				_log.Log(LOG_ERROR,"Error sending GCM Notification!");
+				Json::Value data;
+				data["priority"] = poPriority;
+				data["title"] = Message.c_str();
+				data["message"] = Message.c_str()
+
+				postBody["registration_ids"] = registrationIds;
+				postBody["data"] = data;
+
+				std::vector<std::string> extraHeaders;
+				extraHeaders.push_back("Authorization: key="+sValue);
+				extraHeaders.push_back("Content-Type:application/json");
+				if (!HTTPClient::POST("https://android.googleapis.com/gcm/send",postBody.toStyledString(),extraHeaders,sResult))
+				{
+					_log.Log(LOG_ERROR,"Error sending GCM Notification!");
+				}
+				else
+				{
+					_log.Log(LOG_STATUS,"Notification sent (GCM)");
+				}
 			}
 			else
 			{
-				_log.Log(LOG_STATUS,"Notification sent (GCM)");
+				_log.Log(LOG_ERROR,"No devices registered, GCM notification not send!");
 			}
 		}
 	}
