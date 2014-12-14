@@ -2326,7 +2326,7 @@ bool CSQLHelper::SendNotification(const std::string &EventID, const std::string 
 			if (result.size() > 0)
 			{
 				Json::Value data;
-				data["priority"] = poPriority;
+				data["priority"] = Priority;
 				data["title"] = Message.c_str();
 				data["message"] = Message.c_str()
 
