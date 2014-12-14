@@ -6726,7 +6726,7 @@ namespace http {
 				}
 				else
 				{
-					root['Error'] = "Not configured";
+					root["Error"] = "Not configured";
 				}
 			}
 			else if (cparam == "gcmregister")
@@ -6741,7 +6741,7 @@ namespace http {
 
 				// Check if the registration ID does not already exist
 				sprintf(szTmp,"SELECT ROWID FROM GCMDevices WHERE (RegistrationID='%s')",registration_id.c_str());
-				result=query(szTmp);
+				result=m_sql.query(szTmp);
 				if (result.size()==0)
 				{
 					sprintf(szTmp,
