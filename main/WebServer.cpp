@@ -7007,14 +7007,14 @@ namespace http {
 			m_sql.UpdatePreferencesVar("PushoverAPI", CURLEncode::URLDecode(PushoverAPI).c_str());
 			std::string PushoverUser = m_pWebEm->FindValue("PushoverUserID");
 			m_sql.UpdatePreferencesVar("PushoverUser", CURLEncode::URLDecode(PushoverUser).c_str());
-			std::string DashboardType = m_pWebEm->FindValue("DashboardType");
-			m_sql.UpdatePreferencesVar("DashboardType", atoi(DashboardType.c_str()));
-			std::string MobileType = m_pWebEm->FindValue("MobileType");
-			m_sql.UpdatePreferencesVar("MobileType", atoi(MobileType.c_str()));
 			std::string GCMProject = m_pWebEm->FindValue("GCMProject");
 			m_sql.UpdatePreferencesVar("GCMProject", CURLEncode::URLDecode(GCMProject).c_str());
 			std::string GCMKey = m_pWebEm->FindValue("GCMAPIKey");
 			m_sql.UpdatePreferencesVar("GCMAPI", CURLEncode::URLDecode(GCMKey).c_str());
+			std::string DashboardType = m_pWebEm->FindValue("DashboardType");
+			m_sql.UpdatePreferencesVar("DashboardType", atoi(DashboardType.c_str()));
+			std::string MobileType = m_pWebEm->FindValue("MobileType");
+			m_sql.UpdatePreferencesVar("MobileType", atoi(MobileType.c_str()));
 
 			int nUnit = atoi(m_pWebEm->FindValue("WindUnit").c_str());
 			m_sql.UpdatePreferencesVar("WindUnit", nUnit);
