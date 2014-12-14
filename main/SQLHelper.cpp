@@ -2347,7 +2347,7 @@ bool CSQLHelper::SendNotification(const std::string &EventID, const std::string 
 				}
 				else
 				{
-					_log.Log(LOG_STATUS,"Notification sent (GCM)");
+					_log.Log(LOG_STATUS,"Notification sent to %d devices (GCM)", result.size());
 				}
 			}
 			else
@@ -2509,7 +2509,7 @@ bool CSQLHelper::SendNotificationEx(const std::string &Subject, const std::strin
 				}
 				else
 				{
-					_log.Log(LOG_STATUS,"Notification sent (GCM)");
+					_log.Log(LOG_STATUS,"Notification sent to %d devices (GCM)", result.size());
 				}
 			}
 			else
