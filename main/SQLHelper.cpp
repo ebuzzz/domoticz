@@ -2333,7 +2333,6 @@ bool CSQLHelper::SendNotification(const std::string &EventID, const std::string 
 
 				Json::Value data;
 				data["priority"] = Priority;
-				data["title"] = Message.c_str();
 				data["message"] = Message.c_str();
 
 				postBody["registration_ids"] = registrationIds;
@@ -2495,8 +2494,8 @@ bool CSQLHelper::SendNotificationEx(const std::string &Subject, const std::strin
 
 				Json::Value data;
 				data["priority"] = Priority;
-				data["title"] = Message.c_str();
-				data["message"] = Message.c_str();
+				data["title"] = Subject;
+				data["message"] = Body;
 
 				postBody["registration_ids"] = registrationIds;
 				postBody["data"] = data;
