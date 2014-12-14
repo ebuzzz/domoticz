@@ -497,9 +497,9 @@ const char *sqlCreateFloorplanOrderTrigger =
 	"END;\n";
 
 const char *sqlCreateGCMDevices =
-    "CREATE TABLE IF NOT EXISTS [GCMDevices] ("
-    "[RegistrationID] TEXT NOT NULL, "
-    "[LastUpdate] DATETIME DEFAULT(datetime('now', 'localtime')));";
+	"CREATE TABLE IF NOT EXISTS [GCMDevices] ("
+	"[RegistrationID] TEXT NOT NULL, "
+	"[LastUpdate] DATETIME DEFAULT(datetime('now', 'localtime')));";
     
 extern std::string szStartupFolder;
 
@@ -616,7 +616,7 @@ bool CSQLHelper::OpenDatabase()
 	query(sqlCreateUserVariables);
 	query(sqlCreateFloorplans);
 	query(sqlCreateFloorplanOrderTrigger);
-    query(sqlCreateGCMDevices);
+	query(sqlCreateGCMDevices);
 
 	if ((!bNewInstall) && (dbversion < DB_VERSION))
 	{
@@ -2316,12 +2316,12 @@ bool CSQLHelper::SendNotification(const std::string &EventID, const std::string 
 		if (sValue!="")
 		{
 			//send message via GCM to connected devices
-            Json::Value postBody;
-            Json::Value registrationIds;
-            Json::Value data;
-            postBody["registration_ids"] = registrationIds;
-            postBody["data"] = data;
-            
+			Json::Value postBody;
+			Json::Value registrationIds;
+			Json::Value data;
+			postBody["registration_ids"] = registrationIds;
+			postBody["data"] = data;
+
 			std::vector<std::string> extraHeaders;
 			extraHeaders.push_back("Authorization: key="+sValue);
 			extraHeaders.push_back("Content-Type:application/json");

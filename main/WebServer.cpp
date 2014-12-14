@@ -6727,31 +6727,31 @@ namespace http {
 			}
 			else if (cparam == "gcmregister")
             {
-                root["status"] = "OK";
-                root["title"] = "GCMRegister";
-                
-                std::string registration_id = m_pWebEm->FindValue("registration_id");
-                
-                std::vector<std::vector<std::string> > result;
-                char szTmp[1024];
-                
-                sprintf(szTmp,
-                    "INSERT INTO GCMDevices (RegistrationID, LastUpdate) VALUES ('%s', datetime('now', 'localtime'))",
-                    registration_id.c_str());
-                result = m_sql.query(szTmp);
+				root["status"] = "OK";
+				root["title"] = "GCMRegister";
+
+				std::string registration_id = m_pWebEm->FindValue("registration_id");
+
+				std::vector<std::vector<std::string> > result;
+				char szTmp[1024];
+
+				sprintf(szTmp,
+					"INSERT INTO GCMDevices (RegistrationID, LastUpdate) VALUES ('%s', datetime('now', 'localtime'))",
+					registration_id.c_str());
+				result = m_sql.query(szTmp);
 			}     
-            else if (cparam == "gcmunregister")
-            {
-                root["status"] = "OK";
-                root["title"] = "GCMUnregister";
-                
-                std::string registration_id = m_pWebEm->FindValue("registration_id");
-                
-                char szTmp[1024];
-                sprintf(szTmp,
-                    "DELETE FROM GCMDevices WHERE RegistrationID = '%s'",
-                    registration_id.c_str());
-                m_sql.query(szTmp);
+			else if (cparam == "gcmunregister")
+			{
+				root["status"] = "OK";
+				root["title"] = "GCMUnregister";
+
+				std::string registration_id = m_pWebEm->FindValue("registration_id");
+
+				char szTmp[1024];
+				sprintf(szTmp,
+					"DELETE FROM GCMDevices WHERE RegistrationID = '%s'",
+					registration_id.c_str());
+				m_sql.query(szTmp);
 			}    
 		}
 
