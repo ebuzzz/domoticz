@@ -11991,6 +11991,14 @@ namespace http {
 				{
 					root["PushoverUser"] = sValue;
 				}
+				else if (Key == "GCMProject")
+				{
+					root["GCMProject"] = sValue;
+				}
+				else if (Key == "GCMAPI")
+				{
+					root["GCMAPI"] = sValue;
+				}
 				else if (Key == "DashboardType")
 				{
 					root["DashboardType"] = nValue;
